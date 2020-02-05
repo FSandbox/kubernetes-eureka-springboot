@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoservice 
+  labels:
+    app: todoservice
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoservice
+  template:
+    metadata:
+      labels:
+        app: todoservice
+    spec:
+      containers:
+        - image: fernandochristyanto/todoservice
+          name: todoservice
+          ports:
+            - containerPort: 8080
+          env:
+            - name: EUREKA_URL
+              value: http://eureka:admin@eurekaservice:8762/eureka
